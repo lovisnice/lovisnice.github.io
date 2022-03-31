@@ -110,14 +110,28 @@
 </form>
 <hr>
 </td>
-
-<h1 align = "center">Дякуємо за реєстрацію !</h1>
+<h1 align = "center">Список зареєстрованих !</h1>;
+<TABLE align = "center" border="1" width = "600">
+<td align="center"><b>Прізвище</b></td>
+<td align="center"><b>Імя</b></td>
+<td align="center"><b>E-Mail</b></td>
+<td align="center"><b>Пароль</b></td>
+</tr>
 <?php
-$st = $_POST['name2'].";".$_POST['name1'].";".$_POST['email']";".$_POST['password']."\n";
-$fp = fopen("baza.txt","a");
-$test = fwrite($fp,$st);
-echo "<h2 align = 'center' >Ви ввели :".$_POST['name2'].";".$_POST['name1'].";".$_POST['email']";".$_POST['password']."</h2>"
+$data = file("baza.txt");
+foreach ($data as $line)
+{
+  $trs = eplode(";"$line);
+    echo'<tr>';
+  echo'<tr>'.$trs[0].'</td>';
+
+  echo'<tr>'.$trs[1].'</td>';
+  echo'<tr>'.$trs[2].'</td>';
+  echo'<tr>'.$trs[3].'</td>';
+    echo'<tr>';
+}
 ?>
+</table>';
 </h1>
 
 </tr>
