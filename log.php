@@ -108,33 +108,36 @@
 <input type="reset" value="Очистити">
 </p>
 </form>
-<hr>
-</td>
-<h1 align = "center">Список зареєстрованих !</h1>;
-<TABLE align = "center" border="1" width = "600">
-<td align="center"><b>Прізвище</b></td>
-<td align="center"><b>Імя</b></td>
-<td align="center"><b>E-Mail</b></td>
-<td align="center"><b>Пароль</b></td>
-</tr>
+
 <?php
-$data = file("baza.txt");
-foreach ($data as $line)
-{
-  $trs = eplode(";"$line);
-    echo'<tr>';
-  echo'<tr>'.$trs[0].'</td>';
-
-  echo'<td>'.$trs[1].'</td>';
-  echo'<td>'.$trs[2].'</td>';
-  echo'<td>'.$trs[3].'</td>';
-    echo'<tr>';
-}
+$log_path = 'log.txt';
+$user_ip = getenv(REMOTE_ADDR);
+$user_brouser = getenv(HTTP_USER_AGENT);
+$current_time = date("ymd H:i:s");
+$log_string = "$user_ip|$user_brouser|$current_time|\r\n";
+$file = fopen($log_path,"a");
+fwrite($file,$log_string,strlen($log_string));
+fclose($file);
 ?>
-</table>';
-</h1>
 
-</tr>
+<?php
+echo'<h1 align = "center">Хто до нас на сайт заходив !</h1>';
+echo'<TABLE align = "center" border="l" width="800">';
+    echo'<tr>';
+$data = file("log.txt");
+foreach($data as $line)
+{
+  $trs = explode("|",$line);
+    echo'<tr>';
+echo'<td>'.$trs[0].'</td>';
+echo'<td>'.$trs[1].'</td>';
+echo'<td>'.$trs[2].'</td>';
+    echo'<tr>';
+ 
+} 
+echo'</table>';  
+?>
+
 <tr>
 <td background = "images/bg-3.jpg" colspan="2" valign="middle" height="90">
   <font size = "4"> Сайт розробив "Автор" </font>
